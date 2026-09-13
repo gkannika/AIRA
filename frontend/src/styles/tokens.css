@@ -1,0 +1,91 @@
+/*
+  Design tokens for the AI Repository Intelligence Assistant.
+
+  Concept: a "code cartography" tool - the UI reads like an instrument panel
+  for exploring a repository's terrain. Background is a deep graphite (not
+  pure black), with two functional accents rather than one decorative one:
+    - amber/signal (--accent-signal): AI-generated content, insights, CTAs
+    - cyan/graph  (--accent-graph):  structural elements - dependency edges,
+                                      file-tree lines, graph nodes
+  Monospace is used only where it's functionally correct (file paths, code
+  identifiers, stats) - not as a stylistic label everywhere.
+*/
+
+:root {
+  /* Surfaces */
+  --bg-base: #101215;
+  --bg-raised: #171a1e;
+  --bg-inset: #0c0e10;
+  --border-subtle: #262b31;
+  --border-strong: #3a4148;
+
+  /* Text */
+  --text-primary: #eef0f2;
+  --text-secondary: #a8b0b8;
+  --text-tertiary: #6b747c;
+
+  /* Accents */
+  --accent-signal: #e7a33e;
+  --accent-signal-dim: #7a5a2c;
+  --accent-graph: #4fd1c5;
+  --accent-graph-dim: #2b5f5a;
+  --accent-danger: #e5646b;
+  --accent-danger-bg: #2a1517;
+
+  /* Status */
+  --status-queued: #8a93a3;
+  --status-progress: #e7a33e;
+  --status-done: #4fd1c5;
+  --status-failed: #e5646b;
+
+  /* Type */
+  --font-ui: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  --sidebar-width: 220px;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+code, .mono {
+  font-family: var(--font-mono);
+}
+
+a { color: inherit; }
+
+::selection {
+  background: var(--accent-signal-dim);
+  color: var(--text-primary);
+}
+
+/* visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-graph);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

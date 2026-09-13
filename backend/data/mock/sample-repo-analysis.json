@@ -1,0 +1,129 @@
+{
+  "owner": "octocat",
+  "name": "task-flow",
+  "stats": { "totalFiles": 87, "totalFolders": 23, "totalLinesOfCode": 9412, "sizeMB": 4.2 },
+  "languages": [
+    { "name": "javascript", "fileCount": 38, "percentage": 43.7 },
+    { "name": "typescript", "fileCount": 22, "percentage": 25.3 },
+    { "name": "python", "fileCount": 14, "percentage": 16.1 },
+    { "name": "css", "fileCount": 13, "percentage": 14.9 }
+  ],
+  "frameworks": ["React", "Express.js", "Vite", "MongoDB (Mongoose)", "Flask"],
+  "technologies": ["Node.js", "Python", "Docker"],
+  "configFiles": ["package.json", "requirements.txt", "Dockerfile", "docker-compose.yml", "tsconfig.json"],
+  "tree": {
+    "name": "task-flow",
+    "type": "folder",
+    "path": "",
+    "children": [
+      {
+        "name": "backend",
+        "type": "folder",
+        "path": "backend",
+        "children": [
+          { "name": "server.js", "type": "file", "path": "backend/server.js", "size": 1820 },
+          { "name": "routes", "type": "folder", "path": "backend/routes", "children": [
+            { "name": "tasks.routes.js", "type": "file", "path": "backend/routes/tasks.routes.js", "size": 2210 },
+            { "name": "auth.routes.js", "type": "file", "path": "backend/routes/auth.routes.js", "size": 1765 }
+          ]},
+          { "name": "models", "type": "folder", "path": "backend/models", "children": [
+            { "name": "Task.js", "type": "file", "path": "backend/models/Task.js", "size": 980 },
+            { "name": "User.js", "type": "file", "path": "backend/models/User.js", "size": 1120 }
+          ]},
+          { "name": "services", "type": "folder", "path": "backend/services", "children": [
+            { "name": "notification.service.js", "type": "file", "path": "backend/services/notification.service.js", "size": 1540 },
+            { "name": "scheduler.py", "type": "file", "path": "backend/services/scheduler.py", "size": 2410 }
+          ]}
+        ]
+      },
+      {
+        "name": "frontend",
+        "type": "folder",
+        "path": "frontend",
+        "children": [
+          { "name": "src", "type": "folder", "path": "frontend/src", "children": [
+            { "name": "App.jsx", "type": "file", "path": "frontend/src/App.jsx", "size": 1340 },
+            { "name": "components", "type": "folder", "path": "frontend/src/components", "children": [
+              { "name": "TaskBoard.tsx", "type": "file", "path": "frontend/src/components/TaskBoard.tsx", "size": 2890 },
+              { "name": "TaskCard.tsx", "type": "file", "path": "frontend/src/components/TaskCard.tsx", "size": 1210 }
+            ]},
+            { "name": "api", "type": "folder", "path": "frontend/src/api", "children": [
+              { "name": "client.ts", "type": "file", "path": "frontend/src/api/client.ts", "size": 640 }
+            ]}
+          ]}
+        ]
+      },
+      {
+        "name": "ml-service",
+        "type": "folder",
+        "path": "ml-service",
+        "children": [
+          { "name": "app.py", "type": "file", "path": "ml-service/app.py", "size": 1980 },
+          { "name": "priority_model.py", "type": "file", "path": "ml-service/priority_model.py", "size": 3120 }
+        ]
+      },
+      { "name": "package.json", "type": "file", "path": "package.json", "size": 890 },
+      { "name": "requirements.txt", "type": "file", "path": "requirements.txt", "size": 210 },
+      { "name": "Dockerfile", "type": "file", "path": "Dockerfile", "size": 430 },
+      { "name": "docker-compose.yml", "type": "file", "path": "docker-compose.yml", "size": 560 }
+    ]
+  },
+  "fileExplanations": {
+    "backend/server.js": "This is the Express.js application entry point. It wires up middleware, mounts the tasks and auth route modules, connects to MongoDB, and starts the HTTP server.",
+    "backend/routes/tasks.routes.js": "Defines REST endpoints for creating, listing, updating, and deleting tasks. Delegates business logic to the Task model and the notification service.",
+    "backend/routes/auth.routes.js": "Handles user signup, login, and JWT-based session issuance. Talks to the User model for credential verification.",
+    "backend/models/Task.js": "Mongoose schema and model for a Task, including title, status, priority, assignee, and due date fields.",
+    "backend/models/User.js": "Mongoose schema and model for application users, including hashed password storage.",
+    "backend/services/notification.service.js": "Sends email/websocket notifications when a task is assigned or its due date approaches.",
+    "backend/services/scheduler.py": "A Python cron-style scheduler that periodically checks for overdue tasks and triggers reminders via the notification service.",
+    "frontend/src/App.jsx": "Root React component; sets up routing between the login screen and the main task board.",
+    "frontend/src/components/TaskBoard.tsx": "Renders the kanban-style board of task columns (To Do / In Progress / Done) and handles drag-and-drop reordering.",
+    "frontend/src/components/TaskCard.tsx": "Renders a single task's title, priority badge, and assignee avatar within the board.",
+    "frontend/src/api/client.ts": "Thin fetch wrapper used by the frontend to call the backend REST API with the stored auth token attached.",
+    "ml-service/app.py": "A small Flask service exposing a /predict-priority endpoint used by the backend to suggest a task's priority.",
+    "ml-service/priority_model.py": "Loads a pre-trained scikit-learn model and exposes a predict() function used by the Flask app."
+  },
+  "dependencyGraph": {
+    "nodes": [
+      { "id": "backend/server.js", "label": "server.js", "type": "file" },
+      { "id": "backend/routes/tasks.routes.js", "label": "tasks.routes.js", "type": "file" },
+      { "id": "backend/routes/auth.routes.js", "label": "auth.routes.js", "type": "file" },
+      { "id": "backend/models/Task.js", "label": "Task.js", "type": "file" },
+      { "id": "backend/models/User.js", "label": "User.js", "type": "file" },
+      { "id": "backend/services/notification.service.js", "label": "notification.service.js", "type": "file" },
+      { "id": "frontend/src/App.jsx", "label": "App.jsx", "type": "file" },
+      { "id": "frontend/src/components/TaskBoard.tsx", "label": "TaskBoard.tsx", "type": "file" },
+      { "id": "frontend/src/components/TaskCard.tsx", "label": "TaskCard.tsx", "type": "file" },
+      { "id": "frontend/src/api/client.ts", "label": "client.ts", "type": "file" },
+      { "id": "pkg:express", "label": "express", "type": "package" },
+      { "id": "pkg:mongoose", "label": "mongoose", "type": "package" },
+      { "id": "pkg:react", "label": "react", "type": "package" }
+    ],
+    "edges": [
+      { "source": "backend/server.js", "target": "backend/routes/tasks.routes.js" },
+      { "source": "backend/server.js", "target": "backend/routes/auth.routes.js" },
+      { "source": "backend/server.js", "target": "pkg:express" },
+      { "source": "backend/routes/tasks.routes.js", "target": "backend/models/Task.js" },
+      { "source": "backend/routes/tasks.routes.js", "target": "backend/services/notification.service.js" },
+      { "source": "backend/routes/auth.routes.js", "target": "backend/models/User.js" },
+      { "source": "backend/models/Task.js", "target": "pkg:mongoose" },
+      { "source": "backend/models/User.js", "target": "pkg:mongoose" },
+      { "source": "frontend/src/App.jsx", "target": "frontend/src/components/TaskBoard.tsx" },
+      { "source": "frontend/src/App.jsx", "target": "pkg:react" },
+      { "source": "frontend/src/components/TaskBoard.tsx", "target": "frontend/src/components/TaskCard.tsx" },
+      { "source": "frontend/src/components/TaskBoard.tsx", "target": "frontend/src/api/client.ts" }
+    ],
+    "mermaid": "flowchart LR\n  n0[\"server.js\"]\n  n1[\"tasks.routes.js\"]\n  n2[\"auth.routes.js\"]\n  n3[\"Task.js\"]\n  n4[\"User.js\"]\n  n5[\"notification.service.js\"]\n  n6[\"App.jsx\"]\n  n7[\"TaskBoard.tsx\"]\n  n8[\"TaskCard.tsx\"]\n  n9[\"client.ts\"]\n  n10([\"express\"])\n  n11([\"mongoose\"])\n  n12([\"react\"])\n  n0 --> n1\n  n0 --> n2\n  n0 --> n10\n  n1 --> n3\n  n1 --> n5\n  n2 --> n4\n  n3 --> n11\n  n4 --> n11\n  n6 --> n7\n  n6 --> n12\n  n7 --> n8\n  n7 --> n9"
+  },
+  "summary": {
+    "overview": "task-flow is a full-stack task-management application combining a React/Vite frontend, an Express.js/MongoDB backend, and a small Python/Flask microservice that predicts task priority using a pre-trained model. It's aimed at small teams who want kanban-style task tracking with basic ML-assisted prioritization.",
+    "architecture": "The system follows a three-tier architecture: a React SPA (frontend/) communicates over REST with an Express API (backend/), which persists data in MongoDB via Mongoose models. The backend also calls out to a separate Flask microservice (ml-service/) for priority prediction, keeping the ML dependency isolated from the main Node.js runtime. A scheduler.py cron-style job independently polls for overdue tasks.",
+    "insights": [
+      "The ML priority-prediction service is decoupled as its own Flask microservice, called over HTTP - a good separation of concerns between Node and Python runtimes.",
+      "Authentication uses JWTs issued from a dedicated auth.routes.js module, separate from task-related business logic.",
+      "There is a mix of plain JavaScript (backend) and TypeScript (frontend components) - introducing TypeScript on the backend could improve type-safety consistency."
+    ],
+    "techStackNarrative": "Core stack: Node.js + Express.js + MongoDB (Mongoose) on the backend, React + Vite + TypeScript on the frontend, and Python + Flask + scikit-learn for the ML microservice. Containerized with Docker and docker-compose for local orchestration."
+  },
+  "documentation": "# task-flow\n\n## Overview\ntask-flow is a full-stack task-management application combining a React/Vite frontend, an Express.js/MongoDB backend, and a Python/Flask microservice for ML-assisted task-priority prediction.\n\n## Tech Stack\n- Frontend: React, Vite, TypeScript\n- Backend: Node.js, Express.js, MongoDB (Mongoose)\n- ML Service: Python, Flask, scikit-learn\n- Infra: Docker, docker-compose\n\n## Getting Started\n1. `docker-compose up` to start MongoDB alongside the app.\n2. `cd backend && npm install && npm run dev`\n3. `cd frontend && npm install && npm run dev`\n4. `cd ml-service && pip install -r requirements.txt && python app.py`\n"
+}
