@@ -37,9 +37,8 @@ async function retrieveContext(query, embeddedChunks, k = 8) {
 }
 
 async function generateSection(query, embeddedChunks, promptBuilder, fallback) {
+  if (embeddedChunks.length === 0) return fallback();
   try {
-    const available = await ollama.isOllamaAvailable();
-    if (!available) throw new Error('Ollama not reachable');
     const context = await retrieveContext(query, embeddedChunks);
     const prompt = promptBuilder(context);
     return await ollama.generate(prompt);
@@ -51,7 +50,8 @@ async function generateSection(query, embeddedChunks, promptBuilder, fallback) {
 
 async function generateRepositorySummary({ repoName, owner, languages, frameworks, technologies, parsedFiles, stats }) {
   const chunks = buildChunks({ languages, frameworks, technologies, parsedFiles });
-  const embeddedChunks = await embedChunks(chunks);
+  const ollamaAvailable = await ollama.isOllamaAvailable();
+  const embeddedChunks = ollamaAvailable ? await embedChunks(chunks) : [];
 
   const overview = await generateSection(
     'project overview purpose and goals',

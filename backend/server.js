@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    mockMode: process.env.MOCK_MODE !== 'false',
+    mockMode: process.env.MOCK_MODE === 'true',
     time: new Date().toISOString(),
   });
 });
@@ -44,7 +44,7 @@ async function start() {
   await connectDB();
   app.listen(PORT, () => {
     logger.info(`AI Repository Intelligence backend listening on http://localhost:${PORT}`);
-    logger.info(`Mock mode: ${process.env.MOCK_MODE !== 'false'}`);
+    logger.info(`Mock mode: ${process.env.MOCK_MODE === 'true'}`);
   });
 }
 

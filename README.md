@@ -54,24 +54,25 @@ ai-repo-intelligence-assistant/
 8. `ollamaService.js` – thin client for a local Ollama server (`/api/generate`), used to turn retrieved context into human-readable text.
 9. `summarizationService.js` – orchestrates 6+7+8 into: project overview, per-folder explanations, tech stack narrative, architecture description, and a generated README.
 10. `mermaidService.js` – turns the dependency graph into Mermaid.js flowchart syntax.
-11. `mockDataService.js` – returns a canned, realistic analysis (`data/mock/sample-repo-analysis.json`) so the full UI can be exercised with zero network access, no Ollama, and no MongoDB.
+11. `mockDataService.js` – provides bundled sample data only when `MOCK_MODE=true` is explicitly enabled.
 
-Every service is a small, independently testable module — swapping the mock pipeline for the real one is a matter of setting `MOCK_MODE=false` once Ollama/MongoDB are available locally.
+Every service is a small, independently testable module. Real repository cloning and code analysis are enabled by default. Ollama adds AI-generated narrative summaries, while MongoDB is optional because the backend falls back to an in-memory store.
 
 ## 3. Running Locally
 
-### Prerequisites (only needed for **real** analysis, not for mock mode)
+### Prerequisites
 - Node.js 18+
 - Git installed and on PATH
-- [Ollama](https://ollama.ai) running locally, with a model pulled, e.g. `ollama pull llama3`
-- MongoDB Community Edition running locally, or a MongoDB Atlas free-tier connection string
+- Internet access to clone public GitHub repositories
+- [Ollama](https://ollama.ai) is optional; without it, the app generates template-based summaries
+- MongoDB is optional; without it, analysis results are stored in memory until the backend restarts
 
-### Quick start (mock mode — no external services needed)
+### Quick start (repository analysis)
 
 ```bash
 # 1. Backend
 cd backend
-cp ../.env.example .env      # MOCK_MODE=true by default
+cp ../.env.example .env      # MOCK_MODE=false by default
 npm install
 npm run dev                  # starts on http://localhost:5000
 
@@ -81,20 +82,15 @@ npm install
 npm run dev                  # starts on http://localhost:5173
 ```
 
-Open http://localhost:5173, paste any GitHub URL (it's only validated for shape in mock mode) and click **Analyze Repository** — you'll get the full dashboard, explorer, and architecture diagram populated from the bundled sample analysis.
+Open http://localhost:5173, paste a public GitHub repository URL, and click **Analyze Repository**. The backend clones and scans that repository, so its files, languages, frameworks, and metrics populate the report. Ollama improves the generated narratives but is not required for the scan.
 
-### Real analysis mode
+### Optional demo mode
 
-1. Start Ollama: `ollama serve` and `ollama pull llama3` (or `gemma`, `mistral`).
-2. Start MongoDB locally (or set `MONGODB_URI` to an Atlas connection string).
-3. In `backend/.env`, set:
+Set this in `backend/.env` to display bundled sample analysis instead of cloning repositories:
    ```
-   MOCK_MODE=false
-   OLLAMA_BASE_URL=http://localhost:11434
-   OLLAMA_MODEL=llama3
-   MONGODB_URI=mongodb://127.0.0.1:27017/repo-intel
+   MOCK_MODE=true
    ```
-4. Restart the backend (`npm run dev`). Analyzing a repository now performs a real shallow clone, Tree-sitter parse, embedding + retrieval pass, and Ollama generation.
+Restart the backend after changing the setting.
 
 ## 4. API Endpoints
 

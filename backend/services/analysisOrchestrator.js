@@ -11,7 +11,7 @@ const { generateRepositorySummary } = require('./summarizationService');
 const { explainFile } = require('./fileExplanationService');
 const { getMockAnalysis } = require('./mockDataService');
 
-const MOCK_MODE = () => process.env.MOCK_MODE !== 'false';
+const MOCK_MODE = () => process.env.MOCK_MODE === 'true';
 
 /**
  * Kicks off analysis for a repository and returns immediately with a
